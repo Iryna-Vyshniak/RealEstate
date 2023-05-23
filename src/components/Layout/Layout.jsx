@@ -5,15 +5,15 @@ import { Footer } from './Footer';
 
 const Layout = () => {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <main>
+      <main className="flex-auto">
         <Suspense fallback={<div>Loading</div>}>
           <Outlet />
         </Suspense>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
