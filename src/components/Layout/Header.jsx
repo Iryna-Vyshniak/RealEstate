@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 
 export const Header = () => {
-  const activeLink = 'text-red-700 border-b-red-500';
+  const activeLink =
+    'cursor-pointer py-3 text-sm font-semibold text-black-700 border-b-[3px] border-b-red-700';
   return (
     <div className="bg-white border-b shadow-sm sticky top-0 z-40">
       <header className="flex justify-between items-center px-3 max-w-6xl mx-auto">
@@ -12,27 +13,39 @@ export const Header = () => {
         </div>
         <nav>
           <ul className="flex space-x-10">
-            <li className="cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent">
+            <li className="py-3">
               <NavLink
                 to="/"
-                className={({ isActive }) => (isActive ? activeLink : '')}
+                className={({ isActive }) =>
+                  isActive
+                    ? activeLink
+                    : 'cursor-pointer px-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent'
+                }
               >
                 Home
               </NavLink>
             </li>
-            <li className="cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent">
+            <li className="py-3">
               <NavLink
                 to="/offers"
-                className={({ isActive }) => (isActive ? activeLink : '')}
+                className={({ isActive }) =>
+                  isActive
+                    ? activeLink
+                    : 'cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent'
+                }
               >
                 {' '}
                 Offers
               </NavLink>
             </li>
-            <li className="cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent">
+            <li className="py-3">
               <NavLink
                 to="/sign-in"
-                className={({ isActive }) => (isActive ? activeLink : '')}
+                className={({ isActive }) =>
+                  isActive
+                    ? activeLink
+                    : 'cursor-pointer py-3 text-sm font-semibold text-gray-400 border-b-[3px] border-b-transparent'
+                }
               >
                 SignIn
               </NavLink>
