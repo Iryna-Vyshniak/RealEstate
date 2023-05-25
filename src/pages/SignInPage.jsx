@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
+import OAuth from '../components/OAuth';
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -80,6 +81,16 @@ const SignInPage = () => {
                 </Link>
               </p>
             </div>
+            <button
+              type="submit"
+              className="w-full bg-blue-600 text-white px-7 py-3 text-sm font-medium uppercase rounded shadow-md hover:bg-blue-700 transition duration-200 ease-in-out hover:shadow-lg active:bg-blue-800"
+            >
+              Sign in
+            </button>
+            <div className="flex  items-center my-4 before:border-t before:flex-1 before:border-gray-300 after:border-t after:flex-1 after:border-gray-300">
+              <p className="mx-4 text-center font-semibold">OR</p>
+            </div>
+            <OAuth />
           </form>
         </div>
       </div>
