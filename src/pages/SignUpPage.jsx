@@ -8,6 +8,8 @@ import {
 } from 'firebase/auth';
 import { doc, serverTimestamp, setDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import OAuth from '../components/OAuth';
 import { db } from '../firebase';
 
@@ -42,14 +44,14 @@ const SignUpPage = () => {
       formDataCopy.timestap = serverTimestamp();
 
       await setDoc(doc(db, 'users', user.uid), formDataCopy);
+      toast.success('Sign up was successful');
       navigate('/');
     } catch (error) {
-      console.log(error);
+      toast.error('Something went wrong with registration');
     }
   }
 
   function onChange(e) {
-    //console.log(e.target.value);
     setFormData(prevState => ({
       ...prevState,
       [e.target.id]: e.target.value,
