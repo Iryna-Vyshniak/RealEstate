@@ -1,0 +1,1 @@
+import{r as s,g,o as i,j as a,O as c,k as f}from"./index-af4705cc.js";function h(){const[t,e]=s.useState(!1),[n,u]=s.useState(!0);return s.useEffect(()=>{const o=g();i(o,r=>{r&&e(!0),u(!1)})},[]),{loggedIn:t,checkingStatus:n}}function l(){const{loggedIn:t,checkingStatus:e}=h();return e?a.jsx("h3",{children:"Loading"}):t?a.jsx(c,{}):a.jsx(f,{to:"/sign-in"})}export{l as default};
