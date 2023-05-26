@@ -1,6 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import ProfilePage from '../pages/ProfilePage';
+import { Spinner } from './Spinner';
 
 const Layout = lazy(() => import('./Layout/Layout'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -13,7 +14,7 @@ const PrivateRoute = lazy(() => import('../components/PrivateRoute'));
 
 const UserRoutes = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner />}>
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
