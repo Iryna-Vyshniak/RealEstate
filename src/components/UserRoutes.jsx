@@ -1,7 +1,7 @@
 import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
-import ProfilePage from '../pages/ProfilePage';
 import { Spinner } from './Spinner';
+import ProfilePage from '../pages/ProfilePage';
 import CreateListingPage from '../pages/CreateListingPage';
 
 const Layout = lazy(() => import('./Layout/Layout'));
@@ -26,7 +26,9 @@ const UserRoutes = () => {
           <Route path="sign-up" element={<SignUpPage />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
           <Route path="offers" element={<OffersPage />} />
-          <Route path="/create-listing" element={<CreateListingPage />} />
+          <Route path="create-listing" element={<PrivateRoute />}>
+            <Route path="/create-listing" element={<CreateListingPage />} />
+          </Route>
           <Route path="*" element={<PageNotFound />} />
         </Route>
       </Routes>
