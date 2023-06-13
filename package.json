@@ -10,11 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tomtom-international/web-sdk-maps": "^6.23.0",
+    "@tomtom-international/web-sdk-services": "^6.23.0",
+    "dotenv": "^16.1.4",
     "firebase": "^9.22.0",
     "react": "^18.2.0",
     "react-icons": "^4.8.0",
     "react-router-dom": "^6.11.2",
-    "react-toastify": "^9.1.3"
+    "react-toastify": "^9.1.3",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
