@@ -1,6 +1,14 @@
 import { getAuth, updateProfile } from 'firebase/auth';
-import { doc, updateDoc } from 'firebase/firestore';
-import { useState } from 'react';
+import {
+  collection,
+  doc,
+  getDocs,
+  orderBy,
+  query,
+  updateDoc,
+  where,
+} from 'firebase/firestore';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FcHome } from 'react-icons/fc';
 import { db } from '../firebase';
@@ -11,6 +19,9 @@ const ProfilePage = () => {
   const navigate = useNavigate();
 
   const [changeDetails, setChangeDetails] = useState();
+  const [listings, setListings] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+
   const [formData, setFormData] = useState({
     name: auth.currentUser.displayName,
     email: auth.currentUser.email,
@@ -53,6 +64,27 @@ const ProfilePage = () => {
       toast.error('Couldn`t update profile details');
     }
   }
+
+  useEffect(() => {
+    // when the page is loaded, to call this function as soon as possible
+    async function fetchUserListings() {
+      const listingRef = collection(db, 'listings');
+      // get the listings that had that is that the person is created, not the other, userRef inside listings and ordered by descending - the new one comes first
+      const q = query(
+        listingRef,
+        where('userRef', '==', auth.currentUser.uid),
+        orderBy('timestamp', 'desc')
+      );
+      // get docs from the documents
+      const querySnap = await getDocs(q);
+      let listings = [];
+
+      querySnap.forEach(doc => listings.push({ id: doc.id, data: doc.data() }));
+      setListings(listings);
+      setIsLoading(false);
+    }
+    fetchUserListings();
+  }, [auth.currentUser.uid]);
 
   return (
     <>
@@ -106,7 +138,7 @@ const ProfilePage = () => {
             className="w-full bg-blue-700 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-600 transition duration-200 ease-in-out hover:shadow-lg active:bg-blue-800"
           >
             <Link
-              to="/create-list"
+              to="/create-listing"
               className="flex justify-center items-center"
             >
               <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
