@@ -13,6 +13,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FcHome } from 'react-icons/fc';
 import { db } from '../firebase';
 import { toast } from 'react-toastify';
+import { ListingsItem } from '../components/ListingsItem';
 
 const ProfilePage = () => {
   const auth = getAuth();
@@ -82,6 +83,7 @@ const ProfilePage = () => {
       querySnap.forEach(doc => listings.push({ id: doc.id, data: doc.data() }));
       setListings(listings);
       setIsLoading(false);
+      console.log(listings);
     }
     fetchUserListings();
   }, [auth.currentUser.uid]);
@@ -147,6 +149,23 @@ const ProfilePage = () => {
           </button>
         </div>
       </section>
+
+      <div className="max-w-6xl px-3 mt-6 mx-auto ">
+        {!isLoading && listings.length > 0 && (
+          <>
+            <h2 className="text-2xl text-center font-semibold">My Listings</h2>
+            <ul>
+              {listings.map(listing => (
+                <ListingsItem
+                  listing={listing.data}
+                  id={listing.id}
+                  key={listing.id}
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </>
   );
 };
