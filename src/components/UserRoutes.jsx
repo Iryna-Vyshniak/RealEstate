@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Spinner } from './Spinner';
 import ProfilePage from '../pages/ProfilePage';
 import CreateListingPage from '../pages/CreateListingPage';
+import EditListingPage from '../pages/EditListingPage';
 
 const Layout = lazy(() => import('./Layout/Layout'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -28,6 +29,12 @@ const UserRoutes = () => {
           <Route path="offers" element={<OffersPage />} />
           <Route path="create-listing" element={<PrivateRoute />}>
             <Route path="/create-listing" element={<CreateListingPage />} />
+          </Route>
+          <Route path="edit-listing" element={<PrivateRoute />}>
+            <Route
+              path="/edit-listing/:listingId"
+              element={<EditListingPage />}
+            />
           </Route>
           <Route path="*" element={<PageNotFound />} />
         </Route>
