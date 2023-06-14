@@ -9,9 +9,9 @@ dayjs.locale('en');
 // icons
 import { MdLocationOn } from 'react-icons/md';
 import { FaTrash } from 'react-icons/fa';
-import { MdEdit } from 'react-icons/md';
+import { MdCreate } from 'react-icons/md';
 
-export const ListingsItem = ({ listing, id }) => {
+export const ListingsItem = ({ listing, id, onDelete, onEdite }) => {
   const timestamp = listing.timestamp?.toDate();
   const formattedTimestamp = timestamp ? dayjs(timestamp).fromNow() : '';
 
@@ -60,6 +60,18 @@ export const ListingsItem = ({ listing, id }) => {
           </div>
         </div>
       </Link>
+      {onDelete && (
+        <FaTrash
+          className="absolute bottom-2 right-2 h-[14px] cursor-pointer text-red-700"
+          onClick={() => onDelete(listing.id)}
+        />
+      )}
+      {onEdite && (
+        <MdCreate
+          className="absolute bottom-2 right-8 h-4 cursor-pointer  text-blue-700"
+          onClick={() => onEdite(listing.id)}
+        />
+      )}
     </li>
   );
 };
@@ -84,6 +96,9 @@ ListingsItem.propTypes = {
     timestamp: PropTypes.objectOf(PropTypes.number),
     type: PropTypes.string,
     userRef: PropTypes.string,
+    id: PropTypes.string,
   }).isRequired,
   id: PropTypes.string.isRequired,
+  onDelete: PropTypes.func,
+  onEdite: PropTypes.func,
 };
