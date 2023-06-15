@@ -4,6 +4,7 @@ import { Spinner } from './Spinner';
 import ProfilePage from '../pages/ProfilePage';
 import CreateListingPage from '../pages/CreateListingPage';
 import EditListingPage from '../pages/EditListingPage';
+import ListingPage from '../pages/ListingPage';
 
 const Layout = lazy(() => import('./Layout/Layout'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -26,6 +27,10 @@ const UserRoutes = () => {
           <Route path="sign-in" element={<SignInPage />} />
           <Route path="sign-up" element={<SignUpPage />} />
           <Route path="forgot-password" element={<ForgotPasswordPage />} />
+          <Route
+            path="/category/:categoryName/:listingId"
+            element={<ListingPage />}
+          />
           <Route path="offers" element={<OffersPage />} />
           <Route path="create-listing" element={<PrivateRoute />}>
             <Route path="/create-listing" element={<CreateListingPage />} />
