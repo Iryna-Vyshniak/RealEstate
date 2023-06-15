@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { db } from '../firebase';
 import { getAuth } from 'firebase/auth';
 import { Spinner } from '../components/Spinner';
+// swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, {
   EffectFade,
@@ -12,6 +13,8 @@ import SwiperCore, {
   Pagination,
 } from 'swiper';
 import 'swiper/css/bundle';
+// map
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 // icons
 import {
   FaShare,
@@ -73,7 +76,7 @@ const ListingPage = () => {
         ))}
       </Swiper>
       <div
-        className="fixed top-[8%] right-[3%] z-10 bg-white cursor-pointer border-2 border-gray-400 rounded-full w-12 h-12 flex justify-center items-center"
+        className="fixed top-[12%] right-[3%] z-20 bg-white cursor-pointer border-2 border-gray-400 rounded-full w-12 h-12 flex justify-center items-center"
         onClick={() => {
           navigator.clipboard.writeText(window.location.href);
           setShareLinkCopied(true);
@@ -86,12 +89,12 @@ const ListingPage = () => {
         <FaShare className="text-lg text-slate-500" />
       </div>
       {shareLinkCopied && (
-        <p className="fixed z-10 top-[13%] right-[5%] p-2 font-semibold border-2 border-gray-400 rounded-md bg-white">
+        <p className="fixed z-20 top-[20%] right-[5%] p-2 font-semibold border-2 border-gray-400 rounded-md bg-white">
           Link Copied
         </p>
       )}
       <div className="flex flex-col md:flex-row m-4 lg:mx-auto p-4 max-w-6xl rounded-lg shadow-lg bg-white lg:space-x-5">
-        <div className="bg-pink-50 w-full ">
+        <div className="w-full">
           <p className="text-2xl font-bold mb-3 text-blue-900">
             {listing.name} - $
             {listing.offer
@@ -103,8 +106,8 @@ const ListingPage = () => {
             <FaMapMarkerAlt className="text-green-700 mr-1" />
             {listing.address}
           </p>
-          <div className="flex justify-start items-center space-x-4 w-[75%]">
-            <p className="bg-red-800 w-full max-w-[200px] rounded-md p-1 text-white text-center font-semibold shadow-md">
+          <div className="flex flex-col sm:flex-row justify-start items-start sm:items-center sm:space-x-4 w-[75%]">
+            <p className="bg-red-800 w-full max-w-[200px] rounded-md mb-2 sm:mb-0 p-1 text-white text-center font-semibold shadow-md">
               {listing.type === 'rent' ? 'Rent' : 'Sale'}
             </p>
             <div>
@@ -119,7 +122,7 @@ const ListingPage = () => {
             <span className="font-semibold">Description -</span>
             {listing.description}
           </p>
-          <ul className="flex items-center space-x-2 mb-6 lg:space-x-10 text-sm font-semibold">
+          <ul className="flex flex-col sm:flex-row justify-start items-start sm:items-center sm:space-x-2 mb-6 lg:space-x-10 text-sm font-semibold">
             <li className="flex items-center whitespace-nowrap">
               <FaBed className="text-lg mr-1" />
               {+listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : '1 Bed'}
@@ -151,7 +154,24 @@ const ListingPage = () => {
             <Contact userRef={listing.userRef} listing={listing} />
           )}
         </div>
-        <div className="bg-blue-100 w-full h-[200px] lg-[400px] z-10 overflow-x-hidden"></div>
+        <div className="mt-6 md:mt-0 md:ml-2 w-full z-10 h-[200px] md:h-[400px] overflow-x-hidden">
+          <MapContainer
+            center={[listing.geolocation.lat, listing.geolocation.lng]}
+            zoom={10}
+            scrollWheelZoom={true}
+            style={{ height: '100%', width: '100%' }}
+          >
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker
+              position={[listing.geolocation.lat, listing.geolocation.lng]}
+            >
+              <Popup>{listing.address}</Popup>
+            </Marker>
+          </MapContainer>
+        </div>
       </div>
     </main>
   );
