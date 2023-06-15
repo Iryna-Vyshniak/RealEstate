@@ -21,11 +21,13 @@ import {
   FaParking,
   FaChair,
 } from 'react-icons/fa';
+import Contact from '../components/contact';
 
 const ListingPage = () => {
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [shareLinkCopied, setShareLinkCopied] = useState(false);
+  const [contactLandloard, setContactLandloard] = useState(false);
 
   const params = useParams();
   const auth = getAuth();
@@ -89,7 +91,7 @@ const ListingPage = () => {
         </p>
       )}
       <div className="flex flex-col md:flex-row m-4 lg:mx-auto p-4 max-w-6xl rounded-lg shadow-lg bg-white lg:space-x-5">
-        <div className="bg-pink-50 w-full h-[200px] lg-[400px]">
+        <div className="bg-pink-50 w-full ">
           <p className="text-2xl font-bold mb-3 text-blue-900">
             {listing.name} - $
             {listing.offer
@@ -117,7 +119,7 @@ const ListingPage = () => {
             <span className="font-semibold">Description -</span>
             {listing.description}
           </p>
-          <ul className="flex items-center space-x-2 lg:space-x-10 text-sm font-semibold">
+          <ul className="flex items-center space-x-2 mb-6 lg:space-x-10 text-sm font-semibold">
             <li className="flex items-center whitespace-nowrap">
               <FaBed className="text-lg mr-1" />
               {+listing.bedrooms > 1 ? `${listing.bedrooms} Beds` : '1 Bed'}
@@ -135,6 +137,19 @@ const ListingPage = () => {
               {listing.furnished ? 'Furnished' : 'Not furnished'}
             </li>
           </ul>
+          {listing.userRef !== auth.currentUser?.uid && !contactLandloard && (
+            <div className="mt-6">
+              <button
+                onClick={() => setContactLandloard(true)}
+                className="px-7 py-3 bg-blue-700 text-white font-medium text-sm text-center uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-blue-600 focus:shadow-lg w-full transition duration-200 ease-in-out"
+              >
+                Contact Landlord
+              </button>
+            </div>
+          )}
+          {contactLandloard && (
+            <Contact userRef={listing.userRef} listing={listing} />
+          )}
         </div>
         <div className="bg-blue-100 w-full h-[200px] lg-[400px] z-10 overflow-x-hidden"></div>
       </div>
