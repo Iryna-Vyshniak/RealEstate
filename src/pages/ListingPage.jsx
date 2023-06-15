@@ -21,7 +21,7 @@ import {
   FaParking,
   FaChair,
 } from 'react-icons/fa';
-import Contact from '../components/contact';
+import Contact from '../components/Contact';
 
 const ListingPage = () => {
   const [listing, setListing] = useState(null);
