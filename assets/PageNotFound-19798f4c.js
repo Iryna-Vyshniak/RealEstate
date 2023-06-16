@@ -1,1 +1,0 @@
-import{j as e}from"./index-52cc6d67.js";const o=()=>e.jsxs("div",{children:[e.jsx("h1",{children:"404"}),e.jsx("p",{children:"Page not found"})]});export{o as default};
