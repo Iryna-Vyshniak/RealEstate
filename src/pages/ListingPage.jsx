@@ -133,7 +133,7 @@ const ListingPage = () => {
             </li>
             <li className="flex items-center whitespace-nowrap">
               <FaParking className="text-lg mr-1" />
-              {+listing.parking > 1 ? 'Parking Spot' : 'No Parking'}
+              {listing.parking ? 'Parking spot' : 'No parking'}
             </li>
             <li className="flex items-center whitespace-nowrap">
               <FaChair className="text-lg mr-1" />
