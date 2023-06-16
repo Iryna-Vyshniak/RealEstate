@@ -162,6 +162,7 @@ const CreateListingPage = () => {
       [...images].map(image => storeImage(image))
     ).catch(error => {
       setIsLoading(false);
+      console.log(error);
       return toast.error('Images not uploaded');
     });
     // get the URL of image that's inside that is inside the storage of firebase
@@ -226,7 +227,7 @@ const CreateListingPage = () => {
           id="name"
           value={name}
           placeholder="Name"
-          maxLength="32"
+          maxLength="37"
           minLength="10"
           required
           onChange={onChange}

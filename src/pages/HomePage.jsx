@@ -109,15 +109,6 @@ const HomePage = () => {
     fetchListings();
   }, []);
 
-  // if (isLoading) {
-  //   return <Spinner />;
-  // }
-
-  // // this is a condition maybe happens when you create your website and give it to to your customer, they're going to get an error if there is no listing or if something happened and the database didn't response
-  // if (listings.length === 0) {
-  //   return <></>;
-  // }
-
   return (
     <div>
       <Slider />

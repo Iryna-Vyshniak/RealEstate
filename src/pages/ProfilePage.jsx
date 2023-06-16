@@ -84,7 +84,6 @@ const ProfilePage = () => {
       querySnap.forEach(doc => listings.push({ id: doc.id, data: doc.data() }));
       setListings(listings);
       setIsLoading(false);
-      console.log(listings);
     }
     fetchUserListings();
   }, [auth.currentUser.uid]);
