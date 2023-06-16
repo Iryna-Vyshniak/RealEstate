@@ -1,1 +1,0 @@
-import{r as s,g,o as i,j as a,b as c,O as f,B as h}from"./index-98011ea5.js";function S(){const[t,e]=s.useState(!1),[n,u]=s.useState(!0);return s.useEffect(()=>{const o=g();i(o,r=>{r&&e(!0),u(!1)})},[]),{loggedIn:t,checkingStatus:n}}function l(){const{loggedIn:t,checkingStatus:e}=S();return e?a.jsx(c,{}):t?a.jsx(f,{}):a.jsx(h,{to:"/sign-in"})}export{l as default};
