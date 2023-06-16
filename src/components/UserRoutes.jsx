@@ -5,6 +5,7 @@ import ProfilePage from '../pages/ProfilePage';
 import CreateListingPage from '../pages/CreateListingPage';
 import EditListingPage from '../pages/EditListingPage';
 import ListingPage from '../pages/ListingPage';
+import Category from '../pages/Category';
 
 const Layout = lazy(() => import('./Layout/Layout'));
 const HomePage = lazy(() => import('../pages/HomePage'));
@@ -32,6 +33,7 @@ const UserRoutes = () => {
             element={<ListingPage />}
           />
           <Route path="offers" element={<OffersPage />} />
+          <Route path="category/:categoryName" element={<Category />} />
           <Route path="create-listing" element={<PrivateRoute />}>
             <Route path="/create-listing" element={<CreateListingPage />} />
           </Route>
