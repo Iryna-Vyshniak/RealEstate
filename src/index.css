@@ -16,6 +16,15 @@ body {
   background-color: #a8dadc !important;
 }
 
+html::-webkit-scrollbar {
+  display: none;
+}
+
+/* firefox */
+html {
+  scrollbar-width: none;
+}
+
 /* .active {
   @apply text-black font-bold py-2 px-4 border-b-red-500;
 } */
