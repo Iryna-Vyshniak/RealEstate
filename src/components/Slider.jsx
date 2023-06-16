@@ -71,10 +71,10 @@ export const Slider = () => {
                   }}
                   className=" relative w-full h-[300px] overflow-hidden"
                 ></div>
-                <p className="absolute left-1 top-3  text-[#f1faee] font-medium max-w-[90%] bg-[#457b9d] shadow-lg opacity-90 p-2 rounded-br-3xl">
+                <p className="absolute left-1 top-3  text-[#f1faee] font-medium max-w-[90%] bg-[#159cef] shadow-lg opacity-90 p-2 rounded-br-3xl">
                   {data.name}
                 </p>
-                <p className="absolute left-1 bottom-1  text-[#f1faee] font-semibold max-w-[90%] bg-[#e63946] shadow-lg opacity-90 p-2 rounded-tr-3xl">
+                <p className="absolute left-1 bottom-1  text-[#f1faee] font-semibold max-w-[90%] bg-[#850d17] shadow-lg opacity-90 p-2 rounded-tr-3xl">
                   ${data.discountedPrice ?? data.regularPrice}
                   {data.type === 'rent' && ' / month'}
                 </p>
