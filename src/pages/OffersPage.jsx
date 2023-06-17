@@ -72,9 +72,14 @@ const OffersPage = () => {
         });
       });
       setListings(prevState => [...prevState, ...listings]);
-      setIsLoading(false);
+
+      if (querySnap.docs.length < 4) {
+        setLastFetchedListing(null);
+      }
     } catch (error) {
       toast.error('Could not fetch listing');
+    } finally {
+      setIsLoading(false);
     }
   }
 
