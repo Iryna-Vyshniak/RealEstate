@@ -16,7 +16,7 @@ import { ListingsItem } from '../components/ListingsItem';
 const OffersPage = () => {
   const [listings, setListings] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [lastFetchListing, setLastFetchListing] = useState(null);
+  const [lastFetchedListing, setLastFetchedListing] = useState(null);
 
   useEffect(() => {
     async function fetchListings() {
@@ -31,7 +31,7 @@ const OffersPage = () => {
         const querySnap = await getDocs(q);
         // find last visible card in list
         const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-        setLastFetchListing(lastVisible);
+        setLastFetchedListing(lastVisible);
         const listings = [];
         querySnap.forEach(doc => {
           return listings.push({
@@ -57,13 +57,13 @@ const OffersPage = () => {
         where('offer', '==', true),
         orderBy('timestamp', 'desc'),
         // to start from the last fetch listing
-        startAfter(lastFetchListing),
+        startAfter(lastFetchedListing),
         limit(4)
       );
       const querySnap = await getDocs(q);
       // find last visible card in list
       const lastVisible = querySnap.docs[querySnap.docs.length - 1];
-      setLastFetchListing(lastVisible);
+      setLastFetchedListing(lastVisible);
       const listings = [];
       querySnap.forEach(doc => {
         return listings.push({
@@ -96,7 +96,7 @@ const OffersPage = () => {
               ))}
             </ul>
           </main>
-          {lastFetchListing && (
+          {lastFetchedListing && (
             <div className="flex justify-center items-center ">
               <button
                 onClick={onFetchMoreListings}
