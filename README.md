@@ -26,3 +26,7 @@ notifications. And I have created an interesting spinner component that can be
 utilized throughout the website to deliver delightful loading effects.
 Additionally, I have crafted reusable components like the listing card, which
 can be seamlessly integrated into different sections of the website.
+
+<div align="center">
+  <img src="https://ik.imagekit.io/irinavn2011/RealEstate.jpg?updatedAt=1687333283510" width="1200" height="auto"/>
+</div>
