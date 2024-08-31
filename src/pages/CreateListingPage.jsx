@@ -16,14 +16,21 @@ import { useNavigate } from 'react-router-dom';
 const CreateListingPage = () => {
   const navigate = useNavigate();
   const auth = getAuth();
+  // eslint-disable-next-line no-unused-vars
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
+
+  const user = auth.currentUser;
+
+  if (!user) {
+    throw new Error('User is not authenticated');
+  }
 
   const [formData, setFormData] = useState({
     type: 'rent',
     name: '',
-    bedrooms: 1,
-    bathrooms: 1,
+    bedrooms: '1',
+    bathrooms: '1',
     parking: false,
     furnished: false,
     address: '',
@@ -91,6 +98,12 @@ const CreateListingPage = () => {
       return;
     }
 
+    // Check file size before downloading
+    if ([...images].some(image => image.size > 5 * 1024 * 1024)) {
+      setIsLoading(false);
+      return toast.error('Each image must be less than 5MB');
+    }
+
     // get location
     let geolocation = {};
 
@@ -102,12 +115,9 @@ const CreateListingPage = () => {
       );
 
       const { results } = await response.json();
-      console.log(results);
 
       geolocation.lat = results[0]?.position.lat ?? 0;
       geolocation.lng = results[0]?.position.lon ?? 0;
-
-      console.log(geolocation.lat, geolocation.lng);
 
       if (!results.length) {
         setIsLoading(false);
@@ -122,7 +132,7 @@ const CreateListingPage = () => {
     async function storeImage(image) {
       return new Promise((resolve, reject) => {
         const storage = getStorage();
-        const filename = `${auth.currentUser.uid}-${image.name}-${uuidv4()}`;
+        const filename = `${user.uid}-${image.name}-${uuidv4()}`;
         const storageRef = ref(storage, filename);
         const uploadTask = uploadBytesResumable(storageRef, image);
 
@@ -166,7 +176,6 @@ const CreateListingPage = () => {
       return toast.error('Images not uploaded');
     });
     // get the URL of image that's inside that is inside the storage of firebase
-    // console.log(imgUrls);
     const formDataCopy = {
       ...formData,
       imgUrls,
@@ -444,7 +453,7 @@ const CreateListingPage = () => {
             type="file"
             id="images"
             onChange={onChange}
-            accept=".jpg, .png, .jpeg"
+            accept=".jpg,.png,.jpeg"
             multiple
             required
             className="w-full px-3 py-1.5 text-gray-700 bg-white border border-gray-300 rounded transition duration-200 ease-in-out focus:bg-white focus:border-slate-600"

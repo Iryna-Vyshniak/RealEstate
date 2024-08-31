@@ -17,6 +17,7 @@ import { useEffect } from 'react';
 const EditListingPage = () => {
   const navigate = useNavigate();
   const auth = getAuth();
+  // eslint-disable-next-line no-unused-vars
   const [geolocationEnabled, setGeolocationEnabled] = useState(true);
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -24,8 +25,8 @@ const EditListingPage = () => {
   const [formData, setFormData] = useState({
     type: 'rent',
     name: '',
-    bedrooms: 1,
-    bathrooms: 1,
+    bedrooms: '1',
+    bathrooms: '1',
     parking: false,
     furnished: false,
     address: '',
@@ -121,6 +122,12 @@ const EditListingPage = () => {
       return;
     }
 
+    // Check file size before downloading
+    if ([...images].some(image => image.size > 5 * 1024 * 1024)) {
+      setIsLoading(false);
+      return toast.error('Each image must be less than 5MB');
+    }
+
     // get location
     let geolocation = {};
 
@@ -132,12 +139,9 @@ const EditListingPage = () => {
       );
 
       const { results } = await response.json();
-      console.log(results);
 
       geolocation.lat = results[0]?.position.lat ?? 0;
       geolocation.lng = results[0]?.position.lon ?? 0;
-
-      console.log(geolocation.lat, geolocation.lng);
 
       if (!results.length) {
         setIsLoading(false);
@@ -196,7 +200,6 @@ const EditListingPage = () => {
       return toast.error('Images not uploaded');
     });
     // get the URL of image that's inside that is inside the storage of firebase
-    // console.log(imgUrls);
     const formDataCopy = {
       ...formData,
       imgUrls,
